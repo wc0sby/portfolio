@@ -15,13 +15,13 @@
   background: black;
   height: 100%;
   width: 100%
-  transition:  all 2s ease;
+  transition:  all 1s ease;
 }
 
 .welBttn {
   background: black;
   border: none;
-  transition:  all 2s ease;
+  transition:  all 1s ease;
 }
 
 #welcome {
