@@ -1,0 +1,143 @@
+#changeWidth {
+  /*height: 100%;
+  width: 100%;*/
+  background-image: url('../assets/WEDT.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  transition:  all 2s ease;
+}
+
+#welcome {
+  display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
+  margin: 30% 0 0 0;
+  background: black;
+  height: 100%;
+  width: 100%
+  transition:  all 2s ease;
+}
+
+.welBttn {
+  background: black;
+  border: none;
+  transition:  all 2s ease;
+}
+
+#welcome {
+  transition: 800ms;
+  transition-delay: 100ms;
+  transition-timing-function: ease;
+}
+
+#mainPage {
+    display: none;
+    transition: 800ms;
+    transition-delay: 100ms;
+    transition-timing-function: ease-in;
+    font-family: 'Spectral SC', serif;
+
+}
+
+
+body {
+
+  background: black;
+  opacity: .85;
+  color: white;
+}
+
+
+
+article, .title{
+  background: #333333;
+  /*box-shadow: -5px 3px 10px #000, 5px 3px 10px #000;*/
+  box-sizing: border-box;
+  transition-duration: 500ms;
+}
+
+
+img{
+  height: 100%;
+  width: 100%;
+}
+
+blockquote {
+  font-style: italic;
+  text-align: right;
+}
+
+.box-content{
+  margin: 0% 5% 5% 5%;
+}
+
+.box-content-visible {
+  display: block;
+}
+
+.box-content h1{
+  font-weight: bold;
+  padding: 2% 0;
+  color: #336FA3;
+}
+
+.box-content>a {
+  text-decoration: none;
+  color: #fff;
+  transform: scale3d(2, 0.7, 0.2);
+}
+
+.box-content>a:hover {
+  color: gray;
+  transition:  all 1s ease;
+}
+
+.spacing{
+  padding: 1% 0;
+  border-bottom: solid white 1px;
+}
+
+.social-bar{
+  position: fixed;
+  background: white;
+  width: 100%;
+  font-size: 2vw;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  transition: 800ms;
+  transition-delay: 100ms;
+  transition-timing-function: ease;
+  }
+
+.social-bar a {
+  padding: 0 2%;
+}
+
+.social-bar i:hover{
+  transform: scale(1.25);
+}
+
+.page-nav{
+  position: fixed;
+  font-size: 1.5vw;
+  top: 40%;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 5px 5px 0;
+  transition: 800ms;
+  transition-delay: 100ms;
+  transition-timing-function: ease;
+  }
+
+.page-nav a{
+  text-decoration: none;
+}
+
+.page-nav i:hover{
+  transform: scale(1.25);
+}
