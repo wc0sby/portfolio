@@ -51,7 +51,6 @@ body {
 
 article, .title{
   background: #333333;
-  /*box-shadow: -5px 3px 10px #000, 5px 3px 10px #000;*/
   box-sizing: border-box;
   transition-duration: 500ms;
 }
@@ -60,6 +59,10 @@ article, .title{
 img{
   height: 100%;
   width: 100%;
+}
+
+.myPhoto {
+  box-shadow: -5px 3px 10px #000, 5px 3px 10px #000;
 }
 
 blockquote {
@@ -94,7 +97,9 @@ blockquote {
 
 .spacing{
   padding: 1% 0;
-  border-bottom: solid white 1px;
+  /*border-bottom: solid white 1px;*/
+  box-shadow: -5px 3px 5px #fff;
+
 }
 
 .social-bar{
@@ -140,4 +145,10 @@ blockquote {
 
 .page-nav i:hover{
   transform: scale(1.25);
+}
+
+@media(max-width:767px){
+  .page-nav{
+    display: none;
+  }
 }
