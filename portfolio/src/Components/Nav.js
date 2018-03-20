@@ -14,20 +14,24 @@ export default class Navigation extends Component{
     const renderIcons = () => {
       
       return this.props.navIcons.map((group, key)=>{
-        return <IconButton key={key}> 
-            <MaterialIcon  
-              icon={group[0]} 
-              id={group[1]}
-              onClick={this.props.getNavIconName()} 
-            /> 
+        return (
+          <IconButton 
+            key={key} 
+            id={group[1]}
+            onClick={() => this.props.getNavIconName(group[1])} 
+            > 
+              <MaterialIcon  
+                icon={group[0]} 
+                /> 
           </IconButton>
+        )
       })
     }
-  
+    
     return(
       <div>
         <AppBar
-          title="Wade"
+          title={this.props.name}
           onLeftIconButtonClick = {this.props.drawerToggle}
           iconElementRight = {
             <div>

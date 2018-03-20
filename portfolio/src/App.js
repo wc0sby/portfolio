@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import AppBar from './Components/Nav.js';
-import Card from './Components/Card.js';
+import Navigation from './Components/Nav.js';
+import InfoCard from './Components/Card.js';
+import infoObj from './Data/content'
+import GridList from './Components/grid'
+import Welcome from './Components/Welcome'
+import tilesData from './Data/projects.js'
 
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+import Slide from 'react-reveal/Slide';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Drawer from 'material-ui/Drawer';
@@ -17,78 +23,84 @@ class App extends Component {
   super(props)
     this.state = {
       open: false,
-      navTag: ''
+      navTag: 'welcome',
     }
+    /*
+    To add icons, input the material icon name and object key in an array below
+      the first value is the material icon name
+      the second value is the object id used to extract information from
+        the infoObj
+    */
     this.iconsForNav = [
       ['home', 'welcome'],
       ['info', 'about'],
       ['code', 'skills'],
+      ['work', 'projects'],
       ['email', 'contact']
     ]
+    this.wordsForScroll = [
+      "Front-End ",
+      "JavaScript ",
+      "React and React-Native ",
+      "VBA "
+    ]
   }
+  
 
-  infoObj = {
-    about: {
-      title: 'About Me',
-      subtitle: '',
-      text: `Hi, my name is Wade Cosby, the accountant mutating into a web developer. Today I provide my team at Whole Foods Market with solutions to overcome monotonous tasks. My passion is finding solutions through technology to create efficiencies to improve work life balance. I've spent many years of my professional career as an accountant, sharpening my analytical skills which has lead to where I am today.
-      Today I'm enrolled as a student at Austin Coding Academy, where I'm furthering my education with the anticipation of progressing into a fullstack JavaScript developer. As I progress in my journey, I'll keep this page updated for your review. If you see somthing you like or have comments, please feel free to connect with me on social.`,
-    },
-    skills: {
-      title: 'Skills',
-      subtitle: '',
-      text: {
-        skill1:{
-          title: 'Front End Development',
-          text: 'I build websites with the reader in mind. My thought process is a site should be easy on the eye and not too bright. The interactive components I build are based on HTML, CSS, and JavaScript languages and their many frameworks and libraries. My designs are intended to be responsive for cross platform compatibility for on the go needs.'
-        },
-        skill2: {
-          title: 'Wireframing',
-          text: 'The foundation of every good design is based on the planning phase of the project. Wireframing is key to laying a strong foundation to a web design plan. I offer the ability to map out a plan and help you execute your end result.'
-        }
-      }
-    },
-    projects: {
-      title: 'Projects',
-      subtitle: '',
-      text: 'These are some of my most exciting projects today. Feel free to browse my other submissions through GitHub or by navigating to projects dropdown at the top of this page.'
-    },
-    contact: {
-      title: 'Contact',
-      subtitle: '',
-      text: ''
-    }
-  }
-  
-  
   handleDrawerToggle = () => this.setState({open: !this.state.open});
 
-  handleDrawerClose = () => this.setState({open: false});
+  handleDrawerClose = () => {
+    this.setState({open: false});
+  }
 
-  handleIconClicked = (id) => console.log(id)
+  handleIconClicked = (id) => {
+    this.setState({navTag: id})
+  }
 
+  rendorGridList = () => {
+    return this.state.navTag === 'skills'
+      ? <GridList/>
+      : ''
+  }
+  
+  renderCard = () => {
+    return (
+      this.state.navTag === 'welcome'
+      ? <Welcome children = {this.wordsForScroll}/>
+      : (<Slide delay={3000}>
+          <InfoCard
+              navClicked = {this.state.navTag}
+          />
+        </Slide>
+      )
+    )
+  }
+
+  renderDrawerProjects = () => {
+   return tilesData.map((tile, key) => {
+      return (
+        <a key={key} href={tile.img}>
+          <MenuItem onClick={this.handleDrawerClose}>
+              {tile.title}
+          </MenuItem>
+        </a>
+      )   
+    })
+  }
 
   render() {
-
-    // const muiTheme = getMuiTheme({
-    //   palette: {
-    //     textColor: cyan500,
-    //   },
-    //   appBar: {
-    //     textColor: 'white',
-    //   },
-    // })
-
+    
     return (
       <div className='container'>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <div>
             {/* Renders the page navigation */}
-            <AppBar 
+            <Navigation 
               drawerFlag={this.state.drawerOpen}
               drawerToggle = {this.handleDrawerToggle}
               navIcons = {this.iconsForNav}
-              getNavIconName = {()=>this.handleIconClicked(this.iconsForNav)}
+              getNavIconName = {this.handleIconClicked}
+              name = 'Wade'
               />
               {/* Render the menu drawer */}
             <Drawer
@@ -98,15 +110,12 @@ class App extends Component {
               onRequestChange={(open) => this.setState({open})}
               >
               {/* Render Menu items */}
-              <MenuItem onClick={this.handleDrawerClose}>Menu Item</MenuItem>
-              <MenuItem onClick={this.handleDrawerClose}>Menu Item 2</MenuItem>
+              {<h2>Projects</h2>}
+              {this.renderDrawerProjects()}
             </Drawer>
             {/* Render the information cards */}
-            <Card
-              titleProp = {this.infoObj.about.title}
-              subtitleProp = {this.infoObj.about.subtitle}
-              textProp = {this.infoObj.about.text}
-            />
+              {this.renderCard()}
+              {this.rendorGridList()}
           </div>
         </MuiThemeProvider>
       </div>
