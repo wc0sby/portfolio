@@ -30,11 +30,10 @@ class App extends Component {
         the infoObj
     */
     this.iconsForNav = [
-      ['home', 'welcome'],
-      ['info', 'about'],
-      ['code', 'skills'],
-      ['work', 'projects'],
-      ['email', 'contact']
+      ['home', 'welcome', ['']],
+      ['info', 'about', ['Resume']],
+      ['code', 'projects', ['GitHub','Resume']],
+      ['email', 'contact', ['Email','GitHub','LinkedIn']]
     ]
     this.wordsForScroll = [
       "Front-End ",
@@ -55,10 +54,20 @@ class App extends Component {
   }
 
   rendorGridList = () => {
-    return this.state.navTag === 'skills'
+    return this.state.navTag === 'projects'
       ? <GridList/>
       : ''
   }
+
+  linkPicker = () => {
+    return(this.iconsForNav.map((item)=>{
+      return item[1]===this.state.navTag
+      ? item[2]
+      : ''
+      })
+    )
+  } 
+  
   
   renderCard = () => {
     return (
@@ -67,6 +76,7 @@ class App extends Component {
       : (<Slide delay={3000}>
           <InfoCard
               navClicked = {this.state.navTag}
+              linkToDisplay = {this.linkPicker()}
           />
         </Slide>
       )
@@ -85,34 +95,46 @@ class App extends Component {
     })
   }
 
+  renderNavigation = () => {
+   return(
+      <Navigation 
+      drawerFlag={this.state.drawerOpen}
+      drawerToggle = {this.handleDrawerToggle}
+      navIcons = {this.iconsForNav}
+      getNavIconName = {this.handleIconClicked}
+      name = 'Wade'
+      />
+    )
+  }
+
+  renderProjectDrawer = () =>{
+    return (
+      <Drawer
+          docked={false}
+          width={200}
+          open={this.state.open}
+          onRequestChange={(open) => this.setState({open})}
+        >
+        {/* Render Menu items */}
+        {<h2>Projects</h2>}
+        {this.renderDrawerProjects()}
+      </Drawer>
+    )
+  }
+
   render() {
-    
     return (
       <div className='container'>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <div>
-            {/* Renders the page navigation */}
-            <Navigation 
-              drawerFlag={this.state.drawerOpen}
-              drawerToggle = {this.handleDrawerToggle}
-              navIcons = {this.iconsForNav}
-              getNavIconName = {this.handleIconClicked}
-              name = 'Wade'
-              />
-              {/* Render the menu drawer */}
-            <Drawer
-              docked={false}
-              width={200}
-              open={this.state.open}
-              onRequestChange={(open) => this.setState({open})}
-              >
-              {/* Render Menu items */}
-              {<h2>Projects</h2>}
-              {this.renderDrawerProjects()}
-            </Drawer>
-            {/* Render the information cards */}
-              {this.renderCard()}
-              {this.rendorGridList()}
+          {/* Renders the page navigation */}
+            {this.renderNavigation()}
+          {/* Render the menu drawer */}
+            {this.renderProjectDrawer()}
+          {/* Render the information cards */}
+            {this.renderCard()}
+          {/* Render the grid list only when on skills tab */}
+            {this.rendorGridList()}
           </div>
         </MuiThemeProvider>
       </div>

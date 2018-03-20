@@ -6,6 +6,21 @@ import FlatButton from 'material-ui/FlatButton';
 
 export default class InfoCard extends Component{
 
+  renderCardButton = () => {
+    const linkArr = this.props.linkToDisplay
+     const tempArr =  (linkArr.filter((icon)=>{
+        return icon
+      }).map((item, key)=>{
+          return item
+      })
+    )
+    return tempArr.map((icon)=>{
+      return icon.map((item, key)=>{
+        return <FlatButton key={key} label={item} />
+      })
+    })
+
+  }
 
   render(){
     const cardStyles = {
@@ -19,8 +34,9 @@ export default class InfoCard extends Component{
       return(
         <Card style = {cardStyles}>
           <CardActions>
-            <FlatButton label="Email" />
-            <FlatButton label="GitHub" />
+            {this.renderCardButton()}
+            {/* <FlatButton label={this.props.linkToDisplay} />
+            <FlatButton label="GitHub" /> */}
           </CardActions>
           <CardTitle 
             title={infoObj[navClicked].title}
