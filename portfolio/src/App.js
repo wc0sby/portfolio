@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import Navigation from './Components/Nav.js';
 import InfoCard from './Components/Card.js';
-import infoObj from './Data/content'
 import GridList from './Components/grid'
 import Welcome from './Components/Welcome'
 import tilesData from './Data/projects.js'
 
-import TransitionGroup from 'react-transition-group/TransitionGroup';
 import Slide from 'react-reveal/Slide';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -46,7 +44,6 @@ class App extends Component {
     ]
   }
   
-
   handleDrawerToggle = () => this.setState({open: !this.state.open});
 
   handleDrawerClose = () => {

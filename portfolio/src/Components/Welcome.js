@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Slide from 'react-reveal/Slide'
 import TextLoop from 'react-text-loop';
  
 export default class Welcome extends Component {
