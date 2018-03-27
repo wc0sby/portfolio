@@ -5,6 +5,7 @@ import InfoCard from './Components/Card.js';
 import GridList from './Components/grid'
 import Welcome from './Components/Welcome'
 import tilesData from './Data/projects.js'
+import Trivia from './Components/trivia'
 
 import Slide from 'react-reveal/Slide';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -12,6 +13,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Particles from 'react-particles-js'; 
 
 
 // import AppBarExampleIcon from './Components/AppBar';
@@ -23,28 +25,31 @@ class App extends Component {
       open: false,
       navTag: 'welcome',
     }
+
     /*
     To add icons, input the material icon name and object key in an array below
-      the first value is the material icon name
-      the second value is the object id used to extract information from
-        the infoObj
+    the first value is the material icon name
+    the second value is the object id used to extract information from
+    the infoObj
     */
-    this.iconsForNav = [
-      ['home', 'welcome', ['']],
-      ['info', 'about', ['Resume']],
-      ['code', 'projects', ['GitHub','Resume']],
-      ['email', 'contact', ['Email','GitHub','LinkedIn']]
+   this.iconsForNav = [
+     ['home', 'welcome', ['']],
+     ['info', 'about', ['Resume']],
+     ['code', 'projects', ['GitHub','Resume']],
+     ['email', 'contact', ['Email','GitHub','LinkedIn']]
     ]
     this.wordsForScroll = [
-      "Front-End ",
+      "using frameworks ",
       "JavaScript ",
       "React and React-Native ",
-      "VBA "
+      "VBA ",
+      "Bootstrap "
     ]
   }
   
-  handleDrawerToggle = () => this.setState({open: !this.state.open});
 
+  handleDrawerToggle = () => this.setState({open: !this.state.open});
+  
   handleDrawerClose = () => {
     this.setState({open: false});
   }
@@ -67,7 +72,6 @@ class App extends Component {
       })
     )
   } 
-  
   
   renderCard = () => {
     return (
@@ -102,7 +106,7 @@ class App extends Component {
       drawerToggle = {this.handleDrawerToggle}
       navIcons = {this.iconsForNav}
       getNavIconName = {this.handleIconClicked}
-      name = 'Wade'
+      name = {`...${this.state.navTag}`}
       />
     )
   }
@@ -122,11 +126,61 @@ class App extends Component {
     )
   }
 
+  renderBackground = () =>{
+    return (
+    <Particles params={{
+      particles: {
+        number: {
+          value: 100,
+          density: {
+            enable: true,
+            value_area: 3000
+          }
+        },
+        move: {
+          out_mode: 'out',
+          speed: 5
+        }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: {
+            enable: true,
+            mode: 'grab'
+          },
+          onclick: {
+            enable: true,
+            mode: 'bubble'
+          }
+        },
+        modes: {
+          grab: {
+            distance: 515,
+            line_linked: {
+              opacity: 1
+            }
+          }
+        }
+      }
+    }}
+    style={{
+      width: '100%',
+      position: 'absolute',
+      left: '0',
+      top: '0',
+      zIndex: '-1'
+      // backgroundImage: `url(${logo})` 
+    }}
+  />
+  )}
+
   render() {
     return (
-      <div className='container'>
+      <div >
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <div>
+            {this.renderBackground()}
           {/* Renders the page navigation */}
             {this.renderNavigation()}
           {/* Render the menu drawer */}
@@ -135,7 +189,11 @@ class App extends Component {
             {this.renderCard()}
           {/* Render the grid list only when on skills tab */}
             {this.rendorGridList()}
-          </div>
+            <Trivia
+            >
+            </Trivia>
+            </div>
+
         </MuiThemeProvider>
       </div>
     );

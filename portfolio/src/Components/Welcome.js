@@ -8,17 +8,21 @@ export default class Welcome extends Component {
       }
       const scrollStyle = {
         margin: '0 25%',
-        color: 'white'
+        color: 'white',
       }
       const letterStyle = {
-        fontSize: 75,
+        fontSize: 175,
         color: `rgb(${colorRand()},${colorRand()},${colorRand()})`,
         textShadow: '-2px 1px 0px white, 2px 1px 0px white, -8px 3px 1px #6a6d72'
       }
+
+      const bannerStyle = {
+        fontSize: 40
+      }
         return (
           <div style={ scrollStyle }>
-           <h1> <span style = { letterStyle }>W</span>ade codes </h1>
-            <h2> 
+           <h1 style={ bannerStyle }><span style = { letterStyle }>W</span>ade codes </h1>
+            <h2 style = { bannerStyle }> 
                 <TextLoop springConfig={{ stiffness: 180, damping: 8}}>
                 {this.props.children}  
                 </TextLoop> as a front-end developer.
