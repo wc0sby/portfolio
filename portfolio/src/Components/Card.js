@@ -8,7 +8,7 @@ export default class InfoCard extends Component{
 
   renderCardButton = () => {
     const linkArr = this.props.linkToDisplay
-     const tempArr =  (linkArr.filter((icon)=>{
+     const tempArr = (linkArr.filter((icon)=>{
         return icon
       }).map((item, key)=>{
           return item
