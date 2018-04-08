@@ -34,16 +34,16 @@ export default class InfoCard extends Component{
       return(
         <Card style = {cardStyles}>
           <CardActions>
-            {this.renderCardButton()}
-            {/* <FlatButton label={this.props.linkToDisplay} />
-            <FlatButton label="GitHub" /> */}
-          </CardActions>
           <CardTitle 
             title={infoObj[navClicked].title}
             subtitle={infoObj[navClicked].subtitle} />
           <CardText>
             {infoObj[navClicked].text}
           </CardText>
+            {this.renderCardButton()}
+            {/* <FlatButton label={this.props.linkToDisplay} />
+            <FlatButton label="GitHub" /> */}
+          </CardActions>
         </Card>
      );
     }

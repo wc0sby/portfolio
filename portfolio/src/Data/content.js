@@ -13,7 +13,7 @@ const infoObj = {
   contact: {
     title: 'Contact',
     subtitle: '',
-    text: ''
+    text: 'Like what you see? Feel free to contact me using one of the methods below.  Chat soon!'
   },
   welcome: {
     title: 'Welcome',

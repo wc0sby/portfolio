@@ -14,6 +14,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Particles from 'react-particles-js'; 
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import FlatButton from 'material-ui/FlatButton';
 
 
 // import AppBarExampleIcon from './Components/AppBar';
@@ -24,6 +26,7 @@ class App extends Component {
     this.state = {
       open: false,
       navTag: 'welcome',
+      theme: true
     }
 
     /*
@@ -47,6 +50,7 @@ class App extends Component {
     ]
   }
   
+  handleTheme = () =>{!this.state.theme?this.setState({theme:true}):this.setState({theme:false})}
 
   handleDrawerToggle = () => this.setState({open: !this.state.open});
   
@@ -162,36 +166,50 @@ class App extends Component {
             }
           }
         }
-      }
+      },
+      
     }}
     style={{
       width: '100%',
       position: 'absolute',
       left: '0',
       top: '0',
-      zIndex: '-1'
+      zIndex: '-1',
+      backgroundColor: !this.state.theme?'#8e8e8e':'#111111'
       // backgroundImage: `url(${logo})` 
     }}
   />
   )}
 
   render() {
+    const stylesheet = {
+      theme: {
+        position: 'fixed',
+        right: '0px'
+      },
+      trivia: {
+        margin: '0 25%'
+      }
+    }
     return (
       <div >
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider muiTheme={getMuiTheme(this.state.theme?darkBaseTheme:lightBaseTheme)}>
           <div>
             {this.renderBackground()}
           {/* Renders the page navigation */}
             {this.renderNavigation()}
+          <div style={stylesheet.theme}>
+            <FlatButton onClick={this.handleTheme} label={this.state.theme?'Light Theme?':'Dark Theme?'} />
+          </div>
           {/* Render the menu drawer */}
             {this.renderProjectDrawer()}
           {/* Render the information cards */}
             {this.renderCard()}
           {/* Render the grid list only when on skills tab */}
             {this.rendorGridList()}
-            <Trivia
-            >
-            </Trivia>
+            <div style={stylesheet.trivia}>
+            {this.state.navTag==='welcome'?<Trivia/>:''}
+            </div>
             </div>
 
         </MuiThemeProvider>
