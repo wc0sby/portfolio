@@ -102,6 +102,7 @@ export default class Trivia extends Component {
   handleSubmit = ()=>{
     const answer = this.state.question[0].correct_answer
     this.setState({correct: this.state.selected === answer})  
+    this.renderCorrect()
   }
 
   renderCorrect =()=>{
