@@ -18,7 +18,9 @@ export default class Trivia extends Component {
     value: '',
     categories: [],
     question: '',
+    selected: 0,
     error: null,
+    correct: false,
   };
 
   componentDidMount() {
@@ -65,7 +67,6 @@ export default class Trivia extends Component {
             })
           ),
         })
-        // this.renderQuestion(result['results'])
       })
       .catch(error =>
         this.setState({
@@ -83,11 +84,6 @@ export default class Trivia extends Component {
     })
   }
 
-  // getQuestion = () => {
-  //   const dataQuestion = this.state.question
-  //   this.renderQuestion(dataQuestion)
-  // }
-
   handleTriviaCategorySelected = (event, index, value) => {
 
     this.setState({
@@ -95,7 +91,21 @@ export default class Trivia extends Component {
       value,
     });
     this.handleChange(value);
- 
+  }
+
+  handleClickedAnswer = (e, selected)=>{
+    this.setState({
+      ...this.state,selected
+    })
+  }
+
+  handleSubmit = ()=>{
+    const answer = this.state.question[0].correct_answer
+    this.setState({correct: this.state.selected === answer})  
+  }
+
+  renderCorrect =()=>{
+    return this.state.correct ? 'Correct!!!' : 'Try Again...'
   }
 
   renderMultipleChoice = () => {
@@ -106,27 +116,14 @@ export default class Trivia extends Component {
 
     return newArr.map((answer, key) => {
       return (
-      <RadioButtonGroup>
         <RadioButton
           key={key}
-          value={key}
+          value={answer}
           label={answer}
-        />
-        </RadioButtonGroup>
+        />        
       )
     })
     
-   
-      
-   
-    // .map((answer, key) => {
-    //   return 
-    //     <RadioButton
-    //       key={key}
-    //       value={key}
-    //       label={answer}
-    //     />
-    //   })
     }
         
         renderQuestion = () => {
@@ -137,9 +134,9 @@ export default class Trivia extends Component {
           <TextField fullWidth={true}>
             <span>{this.state.question[0]['question']}</span>
           </TextField>
-          {/* <RadioButtonGroup name="shipSpeed" defaultSelected="0"> */}
+          <RadioButtonGroup ref='answers' name='answers' defaultSelected={0} onChange={this.handleClickedAnswer}>
             {this.renderMultipleChoice()}
-          {/* </RadioButtonGroup> */}
+          </RadioButtonGroup>
         </div>
       )
   }
@@ -154,7 +151,7 @@ export default class Trivia extends Component {
       <FlatButton
         label="Submit"
         primary={true}
-        onClick={this.handleClose}
+        onClick={this.handleSubmit}
       />,
     ];
 
@@ -187,6 +184,8 @@ export default class Trivia extends Component {
         </DropDownMenu>
         <br/>
           {this.renderQuestion()}
+        <br/>
+          {this.renderCorrect()}
         </Dialog>
       </div>
     );
